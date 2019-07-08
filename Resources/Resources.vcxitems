@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{17c60112-9e10-40ba-a6ad-eb49f333cf83}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\arm_dif.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\arm_showroom_ddn.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\arm_showroom_spec.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\body_dif.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\body_showroom_ddn.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\body_showroom_spec.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\glass_ddn.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\glass_dif.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\hand_dif.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\hand_showroom_ddn.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\hand_showroom_spec.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\helmet_diff.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\helmet_showroom_ddn.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\helmet_showroom_spec.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\leg_dif.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\leg_showroom_ddn.png" />
+    <Image Include="$(MSBuildThisFileDirectory)models\nanosuit\leg_showroom_spec.png" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\awesomeface.png" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\container.jpg" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\container2.png" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\container2_specular.png" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\wall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="$(MSBuildThisFileDirectory)models\nanosuit\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)models\nanosuit\nanosuit.blend" />
+    <None Include="$(MSBuildThisFileDirectory)models\nanosuit\nanosuit.mtl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="$(MSBuildThisFileDirectory)models\nanosuit\nanosuit.obj" />
+  </ItemGroup>
+</Project>
