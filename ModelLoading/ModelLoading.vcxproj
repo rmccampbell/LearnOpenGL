@@ -23,7 +23,7 @@
     <ProjectGuid>{781a1978-1d51-4a78-bd2f-1a910cc49419}</ProjectGuid>
     <RootNamespace>ModelLoading</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-    <ProjectName>ModelLoading</ProjectName>
+    <ProjectName>ModelLoading1</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
