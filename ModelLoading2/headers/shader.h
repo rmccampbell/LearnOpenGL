@@ -17,7 +17,7 @@ public:
 	unsigned int id;
 
 	// constructor reads and builds the shader
-	Shader(std::string_view vertexPath, std::string_view fragmentPath) {
+	Shader(const char* vertexPath, const char* fragmentPath) {
 		// 1. retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
 		std::string fragmentCode;
