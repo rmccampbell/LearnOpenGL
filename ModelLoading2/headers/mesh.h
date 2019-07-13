@@ -21,10 +21,14 @@ struct Vertex
 class Mesh
 {
 public:
+	Mesh(std::vector<Vertex>&& vertices,
+		std::vector<unsigned int>&& indices,
+		const Material* material = nullptr)
+		: Mesh("", std::move(vertices), std::move(indices), material) {}
 	Mesh(std::string_view name,
 		std::vector<Vertex>&& vertices,
 		std::vector<unsigned int>&& indices,
-		const Material* material);
+		const Material* material = nullptr);
 	void Draw(Shader shader, bool useMaterial = true) const;
 private:
 	void setupMesh();
