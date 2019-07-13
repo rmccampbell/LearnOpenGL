@@ -158,7 +158,7 @@ int main()
 		// render the loaded model
 		glm::mat4 modelMat = glm::mat4(1.0f);
 		//modelMat = glm::rotate(modelMat, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		modelMat = glm::translate(modelMat, glm::vec3(0.0f, -0.5f, 0.0f)); // translate it down so it's at the center of the scene
+		modelMat = glm::translate(modelMat, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
 		modelMat = glm::scale(modelMat, glm::vec3(0.2f));	// it's a bit too big for our scene, so scale it down
 		shader.setMat4("model", modelMat);
 
