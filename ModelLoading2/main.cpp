@@ -84,11 +84,11 @@ int main()
 
 	// build and compile our shader program
 	// ------------------------------------
-	Shader shader("shaders/shader.vert", "shaders/shader.frag");
+	Shader shader("shader.vert", "shader.frag");
 
 	// Load mesh
 	// ---------
-	Model model1("../Resources/models/nanosuit/nanosuit.obj");
+	Model model1("../../../Resources/models/nanosuit/nanosuit.obj");
 	//Model model1(R"(C:\Users\Ryan\3D Objects\hylian_shield\model.dae)");
 
 	//model1.materials[0].diffuse_texture = Texture(R"(C:\Users\Ryan\3D Objects\hylian_shield\textures\02 - Default_albedo.jpg)");

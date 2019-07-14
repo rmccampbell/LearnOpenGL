@@ -163,16 +163,20 @@
     <CopyFileToFolders Include="dlls\assimp-vc140-mt.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="shaders\shader_alpha.frag" />
-    <None Include="shaders\shader.frag">
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="shaders\shader.frag">
       <FileType>Document</FileType>
-    </None>
-    <None Include="shaders\shader.vert">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="shaders\shader.vert">
       <FileType>Document</FileType>
-    </None>
-    <None Include="shaders\shader_notexture.frag">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="shaders\shader_alpha.frag">
       <FileType>Document</FileType>
-    </None>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="shaders\shader_notexture.frag">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

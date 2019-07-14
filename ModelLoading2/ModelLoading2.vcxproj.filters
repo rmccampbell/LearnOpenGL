@@ -13,10 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{20d68067-b8d0-4712-95a4-cd83a7c7d4d7}</UniqueIdentifier>
-      <Extensions>vert;frag;geom;vs;fs;gs;glsl</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,17 +55,17 @@
     <CopyFileToFolders Include="dlls\assimp-vc140-mt.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\shader_notexture.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="shaders\shader.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Resource Files</Filter>
     </None>
     <None Include="shaders\shader.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Resource Files</Filter>
     </None>
     <None Include="shaders\shader_alpha.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\shader_notexture.frag">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>
