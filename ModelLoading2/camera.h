@@ -52,7 +52,8 @@ public:
 	}
 
 	// Constructor with scalar values
-	Camera(float posX, float posY, float posZ, float yaw, float pitch, bool zUp)
+	Camera(float posX, float posY, float posZ,
+		float yaw = YAW, float pitch = PITCH, bool zUp = false)
 		: Camera({ posX, posY, posZ }, yaw, pitch, zUp)
 	{}
 

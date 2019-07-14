@@ -254,7 +254,7 @@ void scrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 // ---------------------------------------------------------------------------------------------
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
-	// make sure the viewport matches the new window dimensions; note that width and 
+	// make sure the viewport matches the new window dimensions; note that width and
 	// height will be significantly larger than specified on retina displays.
 	if (width > 0 && height > 0)
 		glViewport(0, 0, width, height);
