@@ -11,6 +11,7 @@ public:
 	Texture() {}
 	Texture(const std::string& path, bool flip = true);
 	explicit operator bool() const { return id != 0; }
+	bool valid() const { return id != 0; }
 	void clear() { id = 0; filename.clear(); }
 	friend std::ostream& operator<<(std::ostream& os, const Texture& texture);
 

@@ -35,6 +35,10 @@
     <Image Include="$(MSBuildThisFileDirectory)textures\container.jpg" />
     <Image Include="$(MSBuildThisFileDirectory)textures\container2.png" />
     <Image Include="$(MSBuildThisFileDirectory)textures\container2_specular.png" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\cubenet.png" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\earth_sphere.jpg" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\earth_sphere10k.jpg" />
+    <Image Include="$(MSBuildThisFileDirectory)textures\F.png" />
     <Image Include="$(MSBuildThisFileDirectory)textures\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
