@@ -82,6 +82,8 @@ int main()
 	// configure global opengl state
 	// -----------------------------
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// build and compile our shader program
 	// ------------------------------------
@@ -89,10 +91,12 @@ int main()
 
 	// Load mesh
 	// ---------
-	Mesh model1 = makeSphere();
+	Mesh model1 = makeCube(true);
 	Material mat;
 	mat.diffuse_color = glm::vec3(1.0);
-	mat.diffuse_texture = Texture("../Resources/textures/earth_sphere10k.jpg");
+	mat.specular_color = glm::vec3(0.5);
+	mat.shininess = 10.0f;
+	mat.diffuse_texture = Texture("../Resources/textures/cubenet.png");
 	model1.material = &mat;
 	//Model model1("../Resources/models/nanosuit/nanosuit.obj");
 	//Model model1(R"(C:\Users\Ryan\3D Objects\hylian_shield\model.dae)");

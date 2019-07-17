@@ -12,10 +12,10 @@ public:
 	Texture(const std::string& path, bool flip = true);
 	explicit operator bool() const { return id != 0; }
 	void clear() { id = 0; filename.clear(); }
+	friend std::ostream& operator<<(std::ostream& os, const Texture& texture);
 
 	unsigned int id = 0;
 	std::string filename;
-	friend std::ostream& operator<<(std::ostream& os, const Texture& texture);
 };
 
 inline Texture::Texture(const std::string& path, bool flip) : filename(path)

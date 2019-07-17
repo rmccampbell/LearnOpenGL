@@ -9,7 +9,6 @@
 
 #include "material.h"
 #include "shader.h"
-#include "debug.h"
 
 struct Vertex
 {
