@@ -68,7 +68,9 @@ int main()
 	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
 	// tell GLFW to capture our mouse
+#ifndef NO_DISABLE_CURSOR
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+#endif
 
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
@@ -252,7 +254,10 @@ void mouseCallback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	camera.ProcessMouseMovement(float(xoffset), float(yoffset));
+#ifdef NO_DISABLE_CURSOR
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+#endif
+		camera.ProcessMouseMovement(float(xoffset), float(yoffset));
 }
 
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
