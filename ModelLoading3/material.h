@@ -113,19 +113,19 @@ inline void Material::applyTexture(const Shader& shader, const std::string& name
 }
 
 
-std::ostream& operator<<(std::ostream& os, const glm::vec2& vec) {
+inline std::ostream& operator<<(std::ostream& os, const glm::vec2& vec) {
 	return os << "{ " << vec.x << ", " << vec.y << " }";
 }
 
-std::ostream& operator<<(std::ostream& os, const glm::vec3& vec) {
+inline std::ostream& operator<<(std::ostream& os, const glm::vec3& vec) {
 	return os << "{ " << vec.x << ", " << vec.y << ", " << vec.z << " }";
 }
 
-std::ostream& operator<<(std::ostream& os, const glm::vec4& vec) {
+inline std::ostream& operator<<(std::ostream& os, const glm::vec4& vec) {
 	return os << "{ " << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << " }";
 }
 
-std::ostream& operator<<(std::ostream& os, const Material& mat) {
+inline std::ostream& operator<<(std::ostream& os, const Material& mat) {
 	os << "Name: " << mat.name << '\n';
 	os << "Shininess: " << mat.shininess << '\n';
 	os << "Diffuse color: " << mat.diffuse_color << '\n';

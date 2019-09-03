@@ -28,7 +28,7 @@ public:
 		std::vector<Vertex>&& vertices,
 		std::vector<unsigned int>&& indices,
 		const Material* material = nullptr);
-	void Draw(Shader shader, bool useMaterial = true) const;
+	void Draw(const Shader& shader, bool useMaterial = true) const;
 private:
 	void setupMesh();
 
@@ -84,7 +84,7 @@ inline void Mesh::setupMesh()
 	glBindVertexArray(0);
 }
 
-inline void Mesh::Draw(Shader shader, bool useMaterial) const
+inline void Mesh::Draw(const Shader& shader, bool useMaterial) const
 {
 	if (material && useMaterial)
 		material->Apply(shader);

@@ -14,11 +14,13 @@
 #include "camera.h"
 #include "shader.h"
 #include "model.h"
+#include "lights.h"
 #include "primitives.h"
 #include "debug.h"
 
 using namespace std;
 namespace fs = std::filesystem;
+using glm::vec3;
 
 void processInput(GLFWwindow* window);
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -34,14 +36,14 @@ const float ZNEAR = 0.01f;
 const float ZFAR = 100.f;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(vec3(0.0f, 0.0f, 3.0f));
 double lastX = SCR_WIDTH / 2.0f;
 double lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
 
 // timing
 float deltaTime = 0.0f;	// time between current frame and last frame
-float lastFrame = 0.0f;
+float lastTime = 0.0f;
 
 int main()
 {
@@ -85,6 +87,7 @@ int main()
 	// -----------------------------
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// build and compile our shader program
@@ -96,25 +99,42 @@ int main()
 	Mesh model1 = makeSphere();
 	//Mesh model1 = makeCube(true);
 	Material mat;
-	mat.diffuse_color = glm::vec3(1.0);
-	mat.specular_color = glm::vec3(0.5);
+	mat.ambient_color = vec3(1.0f);
+	mat.diffuse_color = vec3(1.0f);
+	mat.specular_color = vec3(0.5f);
 	mat.shininess = 10.0f;
 	mat.diffuse_texture = Texture("../Resources/textures/earth_sphere10k.jpg");
 	//mat.diffuse_texture = Texture("../Resources/textures/cubenet.png");
 	model1.material = &mat;
-	//Model model1("../Resources/models/nanosuit/nanosuit.obj");
-	//Model model1(R"(C:\Users\Ryan\3D Objects\hylian_shield\model.dae)");
 
-	//model1.materials[0].diffuse_texture = Texture(R"(C:\Users\Ryan\3D Objects\hylian_shield\textures\02 - Default_albedo.jpg)");
-	//model1.materials[0].specular_texture = Texture(R"(C:\Users\Ryan\3D Objects\hylian_shield\textures\specular.jpg)");
-	//model1.materials[0].ao_texture = Texture(R"(C:\Users\Ryan\3D Objects\hylian_shield\textures\02 - Default_AO.jpg)");
-	//model1.materials[0].diffuse_color = glm::vec3(0.6f);
-	//model1.materials[0].specular_color = glm::vec3(0.6f);
-	//model1.materials[0].shininess = 15.0f;
+	Mesh lightMesh = makeSphere();
+	Material lightMat;
+	lightMat.diffuse_color = vec3(0.0f);
+	lightMat.specular_color = vec3(0.0f);
+	lightMat.ambient_color = vec3(0.0f);
+	lightMat.emissive_color = vec3(1.0f);
+	lightMesh.material = &lightMat;
 
-	//for (auto& mat : model1.materials) {
-	//	cout << mat << endl;
-	//}
+	PointLight pointLights[] = {
+		{
+			.position = {1.0f, 1.0f, 1.0f},
+			.constant = 1.0f,
+			.linear = 0.09f,
+			.quadratic = 0.032f,
+			.ambient = vec3(0.2f),
+			.diffuse = vec3(1.0f),
+			.specular = vec3(1.0f),
+		},
+		{
+			.position = {1.0f, 1.0f, 1.0f},
+			.constant = 1.0f,
+			.linear = 0.09f,
+			.quadratic = 0.032f,
+			.ambient = vec3(0.2f),
+			.diffuse = vec3(1.0f),
+			.specular = vec3(1.0f),
+		},
+	};
 
 	// render loop
 	// -----------
@@ -122,9 +142,9 @@ int main()
 	{
 		// per-frame time logic
 		// --------------------
-		float currentFrame = float(glfwGetTime());
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
+		float currentTime = float(glfwGetTime());
+		deltaTime = currentTime - lastTime;
+		lastTime = currentTime;
 
 		// input
 		// -----
@@ -138,27 +158,19 @@ int main()
 		shader.use();
 		shader.setVec3("viewPos", camera.Position);
 
-		glm::vec3 lightColor(1.0);
-		//glm::vec3 lightColor = glm::clamp(glm::sin(currentFrame * glm::vec3(2.0f, 0.7f, 1.3f)), 0.0f, 1.0f) * 1.5f;
+		//vec3 lightColor(1.0);
+		vec3 lightColor = glm::clamp(glm::sin(currentTime * vec3(2.0f, 0.7f, 1.3f)), 0.0f, 1.0f) * 1.5f;
+		pointLights[1].ambient = 0.2f * lightColor;
+		pointLights[1].diffuse = pointLights[1].specular = lightColor;
 
-		// directional light
-		shader.setInt("numDirLights", 3);
-		shader.setVec3("dirLights[0].direction", -1.0f, -1.0f, -1.0f);
-		shader.setVec3("dirLights[0].ambient", 0.2f * lightColor);
-		shader.setVec3("dirLights[0].diffuse", lightColor);
-		shader.setVec3("dirLights[0].specular", lightColor);
+		float r = 2.0f, t = currentTime * 0.5f;
+		pointLights[0].position = { r * glm::cos(t), 0.0f, r * glm::sin(t) };
 
-		shader.setVec3("dirLights[1].direction", 1.0f, -1.0f, -1.0f);
-		shader.setVec3("dirLights[1].ambient", glm::vec3(0.0f));
-		shader.setVec3("dirLights[1].diffuse", glm::vec3(0.6f));
-		shader.setVec3("dirLights[1].specular", glm::vec3(0.6f));
-
-		shader.setVec3("dirLights[2].direction", 0.0f, -1.0f, 1.0f);
-		shader.setVec3("dirLights[2].ambient", glm::vec3(0.0f));
-		shader.setVec3("dirLights[2].diffuse", glm::vec3(0.6f));
-		shader.setVec3("dirLights[2].specular", glm::vec3(0.6f));
-
-		shader.setInt("numPointLights", 0);
+		shader.setInt("numDirLights", 0);
+		shader.setInt("numPointLights", int(std::size(pointLights)));
+		for (int i = 0; i < std::size(pointLights); i++) {
+			pointLights[i].Apply(shader, "pointLights[" + to_string(i) + "]");
+		}
 		shader.setInt("numSpotLights", 0);
 
 		// view/projection transformations
@@ -171,28 +183,21 @@ int main()
 
 		// render the loaded model
 		glm::mat4 modelMat = glm::mat4(1.0f);
-		//modelMat = glm::rotate(modelMat, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		//modelMat = glm::translate(modelMat, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-		//modelMat = glm::scale(modelMat, glm::vec3(0.2f));	// it's a bit too big for our scene, so scale it down
+		modelMat = glm::rotate(modelMat, currentTime * .2f, { 0.0f, 1.0f, 0.0f });
+		//modelMat = glm::translate(modelMat, { 0.0f, -1.75f, 0.0f }); // translate it down so it's at the center of the scene
+		//modelMat = glm::scale(modelMat, vec3(0.2f));	// it's a bit too big for our scene, so scale it down
 		shader.setMat4("model", modelMat);
 
 		model1.Draw(shader);
 
-		//modelMat = glm::mat4(1.0f);
-		////modelMat = glm::rotate(modelMat, -glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		//modelMat = glm::translate(modelMat, glm::vec3(-1.0f, -0.5f, 0.8f)); // translate it down so it's at the center of the scene
-		//modelMat = glm::scale(modelMat, glm::vec3(0.2f));	// it's a bit too big for our scene, so scale it down
-		//shader.setMat4("model", modelMat);
-
-		//model2.Draw(shader);
-
-		//modelMat = glm::mat4(1.0f);
-		////modelMat = glm::rotate(modelMat, -glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		//modelMat = glm::translate(modelMat, glm::vec3(1.0f, -0.5f, 0.0f)); // translate it down so it's at the center of the scene
-		//modelMat = glm::scale(modelMat, glm::vec3(0.14f));	// it's a bit too big for our scene, so scale it down
-		//shader.setMat4("model", modelMat);
-
-		//model3.Draw(shader);
+		for (PointLight& light : pointLights) {
+			glm::mat4 modelMat = glm::mat4(1.0f);
+			modelMat = glm::translate(modelMat, light.position);
+			modelMat = glm::scale(modelMat, vec3(0.1f));
+			shader.setMat4("model", modelMat);
+			lightMat.emissive_color = light.diffuse;
+			lightMesh.Draw(shader);
+		}
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------

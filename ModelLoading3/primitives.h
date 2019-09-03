@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <array>
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 #include "mesh.h"
@@ -35,27 +36,28 @@ inline Mesh makeSphere(unsigned int nLat = 16, unsigned int nLon = 32) {
 	return Mesh(std::move(vertices), std::move(indices));
 }
 
-inline Mesh makeCube(bool unwrap = false) {
-	std::vector<glm::vec2> texCoords;
-	if (unwrap) {
-		texCoords = {
-			{0.75f, 1.0f / 3}, {1.00f, 1.0f / 3}, {1.00f, 2.0f / 3}, {0.75f, 2.0f / 3},
-			{0.25f, 1.0f / 3}, {0.50f, 1.0f / 3}, {0.50f, 2.0f / 3}, {0.25f, 2.0f / 3},
-			{0.00f, 1.0f / 3}, {0.25f, 1.0f / 3}, {0.25f, 2.0f / 3}, {0.00f, 2.0f / 3},
-			{0.50f, 1.0f / 3}, {0.75f, 1.0f / 3}, {0.75f, 2.0f / 3}, {0.50f, 2.0f / 3},
-			{0.25f, 0.0f / 3}, {0.50f, 0.0f / 3}, {0.50f, 1.0f / 3}, {0.25f, 1.0f / 3},
-			{0.25f, 2.0f / 3}, {0.50f, 2.0f / 3}, {0.50f, 3.0f / 3}, {0.25f, 3.0f / 3},
-		};
+inline Mesh makeCube(bool separateFaces = true) {
+	std::array<glm::vec2, 24> texCoords;
+	float _1_3 = 1.0f / 3.0f, _2_3 = 2.0f / 3.0f;
+	if (separateFaces) {
+		texCoords = { {
+			{0.75f, _1_3}, {1.00f, _1_3}, {1.00f, _2_3}, {0.75f, _2_3}, // Back
+			{0.25f, _1_3}, {0.50f, _1_3}, {0.50f, _2_3}, {0.25f, _2_3}, // Front
+			{0.00f, _1_3}, {0.25f, _1_3}, {0.25f, _2_3}, {0.00f, _2_3}, // Left
+			{0.50f, _1_3}, {0.75f, _1_3}, {0.75f, _2_3}, {0.50f, _2_3}, // Right
+			{0.25f, 0.0f}, {0.50f, 0.0f}, {0.50f, _1_3}, {0.25f, _1_3}, // Bottom
+			{0.25f, _2_3}, {0.50f, _2_3}, {0.50f, 1.0f}, {0.25f, 1.0f}, // Top
+		} };
 	}
 	else {
-		texCoords = {
+		texCoords = { {
 			{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
 			{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
 			{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
 			{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
 			{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
 			{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f},
-		};
+		} };
 	}
 	std::vector<Vertex> vertices{
 		// Back

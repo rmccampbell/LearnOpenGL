@@ -24,7 +24,7 @@ class Model
 public:
 	Model(const std::string& path, bool forceSmooth = false,
 		unsigned int flags = DEFAULT_FLAGS);
-	void Draw(Shader shader, bool useMaterial = true) const;
+	void Draw(const Shader& shader, bool useMaterial = true) const;
 	Material* GetMaterial(std::string_view name);
 	Mesh* GetMesh(std::string_view name);
 private:
@@ -58,13 +58,13 @@ inline Model::Model(const std::string& path, bool forceSmooth, unsigned int flag
 	processNode(scene->mRootNode, scene);
 }
 
-inline void Model::Draw(Shader shader, bool useMaterial) const
+inline void Model::Draw(const Shader& shader, bool useMaterial) const
 {
 	for (auto& mesh : meshes)
 		mesh.Draw(shader, useMaterial);
 }
 
-Material* Model::GetMaterial(std::string_view name)
+inline Material* Model::GetMaterial(std::string_view name)
 {
 	for (auto& mat : materials)
 		if (mat.name == name)
@@ -72,7 +72,7 @@ Material* Model::GetMaterial(std::string_view name)
 	return nullptr;
 }
 
-Mesh* Model::GetMesh(std::string_view name)
+inline Mesh* Model::GetMesh(std::string_view name)
 {
 	for (auto& mesh : meshes)
 		if (mesh.name == name)

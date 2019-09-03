@@ -43,7 +43,7 @@ public:
 	bool ZUp;
 
 	// Constructor with vectors
-	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
+	Camera(glm::vec3 position = { 0.0f, 0.0f, 0.0f },
 		float yaw = YAW, float pitch = PITCH, bool zUp = false)
 		: Position(position), Yaw(yaw), Pitch(pitch), ZUp(zUp)
 	{
