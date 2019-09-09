@@ -109,7 +109,7 @@
       </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>fmtd.lib;assimp-vc140-mt.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmtd.lib;assimp-vc142-mt.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,11 +163,6 @@
     <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="dlls\assimp-vc140-mt.dll">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
     <CopyFileToFolders Include="shaders\shader.frag">
       <FileType>Document</FileType>
     </CopyFileToFolders>
@@ -178,6 +173,11 @@
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <CopyFileToFolders Include="shaders\shader_notexture.frag">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="dlls\assimp-vc142-mt.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
   </ItemGroup>

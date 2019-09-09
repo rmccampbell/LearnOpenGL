@@ -40,7 +40,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="dlls\assimp-vc140-mt.dll" />
+    <CopyFileToFolders Include="dlls\assimp-vc142-mt.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\shader.frag">

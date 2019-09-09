@@ -58,7 +58,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="dlls\assimp-vc140-mt.dll" />
     <CopyFileToFolders Include="shaders\shader.frag">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
@@ -71,5 +70,6 @@
     <CopyFileToFolders Include="shaders\shader_notexture.frag">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="dlls\assimp-vc142-mt.dll" />
   </ItemGroup>
 </Project>

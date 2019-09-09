@@ -105,7 +105,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>assimp-vc140-mt.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mt.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,7 +148,7 @@
     <ClInclude Include="shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="dlls\assimp-vc140-mt.dll">
+    <CopyFileToFolders Include="dlls\assimp-vc142-mt.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <None Include="shaders\shader.frag">

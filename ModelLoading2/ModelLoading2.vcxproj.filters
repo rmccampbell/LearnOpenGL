@@ -52,20 +52,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="dlls\assimp-vc140-mt.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\shader.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shaders\shader.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shaders\shader_alpha.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shaders\shader_notexture.frag">
-      <Filter>Resource Files</Filter>
-    </None>
+    <CopyFileToFolders Include="shaders\shader.frag" />
+    <CopyFileToFolders Include="shaders\shader.vert" />
+    <CopyFileToFolders Include="shaders\shader_alpha.frag" />
+    <CopyFileToFolders Include="shaders\shader_notexture.frag" />
+    <CopyFileToFolders Include="dlls\assimp-vc142-mt.dll" />
   </ItemGroup>
 </Project>
