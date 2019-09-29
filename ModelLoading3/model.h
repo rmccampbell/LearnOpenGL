@@ -50,7 +50,7 @@ inline Model::Model(const std::string& path, bool forceSmooth, unsigned int flag
 		std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
 		return;
 	}
-	fs::path directory = fs::path(path).parent_path();
+	fs::path directory = fs::u8path(path).parent_path();
 	materials.reserve(scene->mNumMaterials);
 	for (unsigned int i = 0; i < scene->mNumMaterials; i++) {
 		materials.emplace_back(scene->mMaterials[i], directory);

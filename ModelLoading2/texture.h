@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-#include <glad/glad.h>
+#define STBI_WINDOWS_UTF8
 #include <stb_image.h>
+#include <glad/glad.h>
 
 class Texture
 {

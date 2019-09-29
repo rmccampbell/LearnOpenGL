@@ -1,3 +1,4 @@
+﻿#define _SILENCE_CXX20_U8PATH_DEPRECATION_WARNING
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -96,6 +97,7 @@ int main()
 
 	// Load mesh
 	// ---------
+
 	Mesh model1 = makeSphere();
 	//Mesh model1 = makeCube(true);
 	Material mat;
