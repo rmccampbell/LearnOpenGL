@@ -109,7 +109,7 @@ inline void Material::applyTexture(const Shader& shader, const std::string& name
 	glActiveTexture(GL_TEXTURE0 + unit);
 	glBindTexture(GL_TEXTURE_2D, texture.id);
 	shader.setInt(name + ".texture", unit);
-	shader.setBool(name + ".bound", texture.valid());
+	shader.setBool(name + ".bound", !texture.empty());
 }
 
 
