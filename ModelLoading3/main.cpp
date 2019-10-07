@@ -1,5 +1,4 @@
-﻿#define _SILENCE_CXX20_U8PATH_DEPRECATION_WARNING
-#include <iostream>
+﻿#include <iostream>
 #include <cmath>
 #include <algorithm>
 #include <filesystem>

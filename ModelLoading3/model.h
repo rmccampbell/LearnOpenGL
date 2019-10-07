@@ -12,6 +12,7 @@
 #include "material.h"
 #include "mesh.h"
 #include "shader.h"
+#include "u8tils.h"
 
 namespace fs = std::filesystem;
 
@@ -22,7 +23,7 @@ aiProcess_Triangulate | aiProcess_PreTransformVertices;
 class Model
 {
 public:
-	Model(const std::string& path, bool forceSmooth = false,
+	Model(const fs::path& path, bool forceSmooth = false,
 		unsigned int flags = DEFAULT_FLAGS);
 	void Draw(const Shader& shader, bool useMaterial = true) const;
 	Material* GetMaterial(std::string_view name);
@@ -36,7 +37,7 @@ public:
 	std::vector<Material> materials;
 };
 
-inline Model::Model(const std::string& path, bool forceSmooth, unsigned int flags)
+inline Model::Model(const fs::path& path, bool forceSmooth, unsigned int flags)
 {
 	Assimp::Importer importer;
 	if (forceSmooth) {
@@ -45,12 +46,12 @@ inline Model::Model(const std::string& path, bool forceSmooth, unsigned int flag
 		importer.SetPropertyInteger(AI_CONFIG_PP_RVC_FLAGS, aiComponent_NORMALS);
 		importer.SetPropertyFloat(AI_CONFIG_PP_GSN_MAX_SMOOTHING_ANGLE, 175.0f);
 	}
-	const aiScene* scene = importer.ReadFile(path, flags);
+	const aiScene* scene = importer.ReadFile(utf8::path_to_char(path), flags);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
 		std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
 		return;
 	}
-	fs::path directory = fs::u8path(path).parent_path();
+	fs::path directory = path.parent_path();
 	materials.reserve(scene->mNumMaterials);
 	for (unsigned int i = 0; i < scene->mNumMaterials; i++) {
 		materials.emplace_back(scene->mMaterials[i], directory);

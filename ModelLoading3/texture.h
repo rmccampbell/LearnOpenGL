@@ -1,31 +1,34 @@
 #pragma once
 
 #include <iostream>
+#include <filesystem>
 
 #define STBI_WINDOWS_UTF8
 #include <stb_image.h>
 #include <glad/glad.h>
 
+#include "u8tils.h"
+
 class Texture
 {
 public:
 	Texture() {}
-	Texture(const std::string& path, bool flip = true);
+	Texture(const std::filesystem::path& path, bool flip = true);
 	explicit operator bool() const { return id != 0; }
 	bool empty() const { return id == 0; }
 	void clear() { id = 0; filename.clear(); }
 	friend std::ostream& operator<<(std::ostream& os, const Texture& texture);
 
 	unsigned int id = 0;
-	std::string filename;
+	std::filesystem::path filename;
 };
 
-inline Texture::Texture(const std::string& path, bool flip) : filename(path)
+inline Texture::Texture(const std::filesystem::path& path, bool flip) : filename(path)
 {
 	// load image, create texture and generate mipmaps
 	int width, height, channels;
 	stbi_set_flip_vertically_on_load(flip);
-	unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+	unsigned char* data = stbi_load(utf8::path_to_char(path), &width, &height, &channels, 0);
 	if (!data) {
 		std::cerr << "Failed to load texture: " << path << ": " << stbi_failure_reason() << std::endl;
 		filename.clear();

@@ -10,6 +10,7 @@
 
 #include "shader.h"
 #include "texture.h"
+#include "u8tils.h"
 
 namespace fs = std::filesystem;
 
@@ -97,11 +98,11 @@ inline Texture Material::getTexture(aiMaterial * mat,
 		return Texture();
 	aiString aiPath;
 	mat->GetTexture(type, index, &aiPath);
-	fs::path path = directory / fs::u8path(aiPath.C_Str());
+	fs::path path = directory / utf8::to_path(aiPath.C_Str());
 	// Assume ralative filename if wrong path is hard-coded
 	if (!fs::exists(path))
 		path = directory / path.filename();
-	return Texture(path.u8string());
+	return Texture(path);
 }
 
 inline void Material::applyTexture(const Shader& shader, const std::string& name,

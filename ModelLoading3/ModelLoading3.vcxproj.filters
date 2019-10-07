@@ -56,6 +56,9 @@
     <ClInclude Include="lights.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="u8tils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="shaders\shader.frag">
