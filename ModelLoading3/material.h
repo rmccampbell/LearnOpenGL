@@ -22,15 +22,13 @@ class Material {
 public:
 	explicit Material(std::string_view name = "") : name(name) {}
 	Material(aiMaterial* mat, const fs::path& directory);
-	void Apply(const Shader& shader) const;
+	void apply(const Shader& shader) const;
 	friend std::ostream& operator<<(std::ostream& os, const Material& mat);
 private:
 	static void getColor(aiMaterial* mat, const char* pKey,
 		unsigned int type, unsigned int index, glm::vec3& out);
 	static Texture getTexture(aiMaterial* mat, const fs::path& directory,
 		aiTextureType type, unsigned int index = 0);
-	static void applyTexture(const Shader& shader, const std::string& name,
-		const Texture& texture, unsigned int unit);
 public:
 	// Material properties
 	std::string name;
@@ -69,19 +67,19 @@ inline Material::Material(aiMaterial* mat, const fs::path& directory) {
 	normal_texture = getTexture(mat, directory, aiTextureType_NORMALS);
 }
 
-inline void Material::Apply(const Shader& shader) const {
+inline void Material::apply(const Shader& shader) const {
 	shader.setFloat("material.shininess", shininess);
 	shader.setVec3("material.diffuse_color", diffuse_color);
 	shader.setVec3("material.specular_color", specular_color);
 	shader.setVec3("material.ambient_color", ambient_color);
 	shader.setVec3("material.emissive_color", emissive_color);
 
-	applyTexture(shader, "material.diffuse_texture", diffuse_texture, 0);
-	applyTexture(shader, "material.specular_texture", specular_texture, 1);
-	applyTexture(shader, "material.ambient_texture", ambient_texture, 2);
-	applyTexture(shader, "material.emissive_texture", emissive_texture, 3);
-	applyTexture(shader, "material.ao_texture", ao_texture, 4);
-	applyTexture(shader, "material.normal_texture", normal_texture, 5);
+	diffuse_texture.apply(shader, "material.diffuse_texture", 0);
+	specular_texture.apply(shader, "material.specular_texture", 1);
+	ambient_texture.apply(shader, "material.ambient_texture", 2);
+	emissive_texture.apply(shader, "material.emissive_texture", 3);
+	ao_texture.apply(shader, "material.ao_texture", 4);
+	normal_texture.apply(shader, "material.normal_texture", 5);
 }
 
 inline void Material::getColor(aiMaterial* mat, const char* pKey,
@@ -103,14 +101,6 @@ inline Texture Material::getTexture(aiMaterial * mat,
 	if (!fs::exists(path))
 		path = directory / path.filename();
 	return Texture(path);
-}
-
-inline void Material::applyTexture(const Shader& shader, const std::string& name,
-		const Texture& texture, unsigned int unit) {
-	glActiveTexture(GL_TEXTURE0 + unit);
-	glBindTexture(GL_TEXTURE_2D, texture.id);
-	shader.setInt(name + ".texture", unit);
-	shader.setBool(name + ".bound", !texture.empty());
 }
 
 

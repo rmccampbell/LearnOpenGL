@@ -12,9 +12,9 @@
 
 struct Vertex
 {
-	glm::vec3 Position;
-	glm::vec3 Normal;
-	glm::vec2 TexCoords;
+	glm::vec3 position;
+	glm::vec3 normal;
+	glm::vec2 texCoords;
 };
 
 class Mesh
@@ -28,7 +28,7 @@ public:
 		std::vector<Vertex>&& vertices,
 		std::vector<unsigned int>&& indices,
 		const Material* material = nullptr);
-	void Draw(const Shader& shader, bool useMaterial = true) const;
+	void draw(const Shader& shader, bool useMaterial = true) const;
 private:
 	void setupMesh();
 
@@ -72,22 +72,22 @@ inline void Mesh::setupMesh()
 	// vertex positions
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-		reinterpret_cast<void*>(offsetof(Vertex, Position)));
+		reinterpret_cast<void*>(offsetof(Vertex, position)));
 	// vertex normals
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-		reinterpret_cast<void*>(offsetof(Vertex, Normal)));
+		reinterpret_cast<void*>(offsetof(Vertex, normal)));
 	// vertex texture coords
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-		reinterpret_cast<void*>(offsetof(Vertex, TexCoords)));
+		reinterpret_cast<void*>(offsetof(Vertex, texCoords)));
 	glBindVertexArray(0);
 }
 
-inline void Mesh::Draw(const Shader& shader, bool useMaterial) const
+inline void Mesh::draw(const Shader& shader, bool useMaterial) const
 {
 	if (material && useMaterial)
-		material->Apply(shader);
+		material->apply(shader);
 
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, GLsizei(indices.size()), GL_UNSIGNED_INT, 0);

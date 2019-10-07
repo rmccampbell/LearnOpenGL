@@ -25,9 +25,9 @@ class Model
 public:
 	Model(const fs::path& path, bool forceSmooth = false,
 		unsigned int flags = DEFAULT_FLAGS);
-	void Draw(const Shader& shader, bool useMaterial = true) const;
-	Material* GetMaterial(std::string_view name);
-	Mesh* GetMesh(std::string_view name);
+	void draw(const Shader& shader, bool useMaterial = true) const;
+	Material* getMaterial(std::string_view name);
+	Mesh* getMesh(std::string_view name);
 private:
 	void processNode(aiNode* node, const aiScene* scene);
 	void processMesh(aiMesh* mesh);
@@ -59,13 +59,13 @@ inline Model::Model(const fs::path& path, bool forceSmooth, unsigned int flags)
 	processNode(scene->mRootNode, scene);
 }
 
-inline void Model::Draw(const Shader& shader, bool useMaterial) const
+inline void Model::draw(const Shader& shader, bool useMaterial) const
 {
 	for (auto& mesh : meshes)
-		mesh.Draw(shader, useMaterial);
+		mesh.draw(shader, useMaterial);
 }
 
-inline Material* Model::GetMaterial(std::string_view name)
+inline Material* Model::getMaterial(std::string_view name)
 {
 	for (auto& mat : materials)
 		if (mat.name == name)
@@ -73,7 +73,7 @@ inline Material* Model::GetMaterial(std::string_view name)
 	return nullptr;
 }
 
-inline Mesh* Model::GetMesh(std::string_view name)
+inline Mesh* Model::getMesh(std::string_view name)
 {
 	for (auto& mesh : meshes)
 		if (mesh.name == name)
@@ -97,12 +97,12 @@ inline void Model::processMesh(aiMesh* mesh)
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		Vertex vertex{};
 		aiVector3D& v = mesh->mVertices[i];
-		vertex.Position = { v.x, v.y, v.z };
+		vertex.position = { v.x, v.y, v.z };
 		aiVector3D& n = mesh->mNormals[i];
-		vertex.Normal = { n.x, n.y, n.z };
+		vertex.normal = { n.x, n.y, n.z };
 		if (mesh->HasTextureCoords(0)) {
 			aiVector3D& tc = mesh->mTextureCoords[0][i];
-			vertex.TexCoords = { tc.x, tc.y };
+			vertex.texCoords = { tc.x, tc.y };
 		}
 		vertices.push_back(vertex);
 	}

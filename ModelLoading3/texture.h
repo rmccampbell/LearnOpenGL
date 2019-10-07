@@ -7,6 +7,7 @@
 #include <stb_image.h>
 #include <glad/glad.h>
 
+#include "shader.h"
 #include "u8tils.h"
 
 class Texture
@@ -17,6 +18,7 @@ public:
 	explicit operator bool() const { return id != 0; }
 	bool empty() const { return id == 0; }
 	void clear() { id = 0; filename.clear(); }
+	void apply(const Shader& shader, const std::string& name, unsigned int unit) const;
 	friend std::ostream& operator<<(std::ostream& os, const Texture& texture);
 
 	unsigned int id = 0;
@@ -60,7 +62,15 @@ inline Texture::Texture(const std::filesystem::path& path, bool flip) : filename
 	}
 }
 
-std::ostream& operator<<(std::ostream& os, const Texture& texture)
+inline void Texture::apply(const Shader& shader, const std::string& name,
+		unsigned int unit) const {
+	glActiveTexture(GL_TEXTURE0 + unit);
+	glBindTexture(GL_TEXTURE_2D, id);
+	shader.setInt(name + ".texture", unit);
+	shader.setBool(name + ".bound", !empty());
+}
+
+inline std::ostream& operator<<(std::ostream& os, const Texture& texture)
 {
 	os << "Texture { " << texture.id;
 	if (texture) os << ": " << texture.filename;

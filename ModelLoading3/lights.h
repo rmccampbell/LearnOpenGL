@@ -10,7 +10,7 @@ struct DirLight {
 	glm::vec3 diffuse;
 	glm::vec3 specular;
 
-	void Apply(const Shader& shader, const std::string& name);
+	void apply(const Shader& shader, const std::string& name);
 };
 
 struct PointLight {
@@ -24,7 +24,7 @@ struct PointLight {
 	glm::vec3 diffuse;
 	glm::vec3 specular;
 
-	void Apply(const Shader& shader, const std::string& name);
+	void apply(const Shader& shader, const std::string& name);
 };
 
 struct SpotLight {
@@ -41,17 +41,17 @@ struct SpotLight {
 	glm::vec3 diffuse;
 	glm::vec3 specular;
 
-	void Apply(const Shader& shader, const std::string& name);
+	void apply(const Shader& shader, const std::string& name);
 };
 
-void DirLight::Apply(const Shader& shader, const std::string& name) {
+void DirLight::apply(const Shader& shader, const std::string& name) {
 	shader.setVec3(name + ".direction", direction);
 	shader.setVec3(name + ".ambient", ambient);
 	shader.setVec3(name + ".diffuse", diffuse);
 	shader.setVec3(name + ".specular", specular);
 }
 
-void PointLight::Apply(const Shader& shader, const std::string& name) {
+void PointLight::apply(const Shader& shader, const std::string& name) {
 	shader.setVec3(name + ".position", position);
 	shader.setFloat(name + ".constant", constant);
 	shader.setFloat(name + ".linear", linear);
@@ -61,7 +61,7 @@ void PointLight::Apply(const Shader& shader, const std::string& name) {
 	shader.setVec3(name + ".specular", specular);
 }
 
-void SpotLight::Apply(const Shader& shader, const std::string& name) {
+void SpotLight::apply(const Shader& shader, const std::string& name) {
 	shader.setVec3(name + ".position", position);
 	shader.setVec3(name + ".direction", direction);
 	shader.setFloat(name + ".innerCutoff", innerCutoff);

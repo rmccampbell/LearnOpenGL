@@ -170,7 +170,7 @@ int main()
 		shader.setInt("numDirLights", 0);
 		shader.setInt("numPointLights", int(std::size(pointLights)));
 		for (int i = 0; i < std::size(pointLights); i++) {
-			pointLights[i].Apply(shader, "pointLights[" + to_string(i) + "]");
+			pointLights[i].apply(shader, "pointLights[" + to_string(i) + "]");
 		}
 		shader.setInt("numSpotLights", 0);
 
@@ -189,7 +189,7 @@ int main()
 		//modelMat = glm::scale(modelMat, vec3(0.2f));	// it's a bit too big for our scene, so scale it down
 		shader.setMat4("model", modelMat);
 
-		model1.Draw(shader);
+		model1.draw(shader);
 
 		for (PointLight& light : pointLights) {
 			glm::mat4 modelMat = glm::mat4(1.0f);
@@ -197,7 +197,7 @@ int main()
 			modelMat = glm::scale(modelMat, vec3(0.1f));
 			shader.setMat4("model", modelMat);
 			lightMat.emissive_color = light.diffuse;
-			lightMesh.Draw(shader);
+			lightMesh.draw(shader);
 		}
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
