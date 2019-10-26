@@ -17,8 +17,8 @@
 namespace fs = std::filesystem;
 
 constexpr int DEFAULT_FLAGS =
-aiProcess_GenNormals | aiProcess_JoinIdenticalVertices |
-aiProcess_Triangulate | aiProcess_PreTransformVertices;
+	aiProcess_GenNormals | aiProcess_JoinIdenticalVertices |
+	aiProcess_Triangulate | aiProcess_PreTransformVertices;
 
 class Model
 {
@@ -46,7 +46,7 @@ inline Model::Model(const fs::path& path, bool forceSmooth, unsigned int flags)
 		importer.SetPropertyInteger(AI_CONFIG_PP_RVC_FLAGS, aiComponent_NORMALS);
 		importer.SetPropertyFloat(AI_CONFIG_PP_GSN_MAX_SMOOTHING_ANGLE, 175.0f);
 	}
-	const aiScene* scene = importer.ReadFile(utf8::path_to_char(path), flags);
+	const aiScene* scene = importer.ReadFile(u8::path_to_char(path), flags);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
 		std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
 		return;

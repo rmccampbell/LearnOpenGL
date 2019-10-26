@@ -30,11 +30,10 @@ inline Texture::Texture(const std::filesystem::path& path, bool flip) : filename
 	// load image, create texture and generate mipmaps
 	int width, height, channels;
 	stbi_set_flip_vertically_on_load(flip);
-	unsigned char* data = stbi_load(utf8::path_to_char(path), &width, &height, &channels, 0);
+	unsigned char* data = stbi_load(u8::path_to_char(path), &width, &height, &channels, 0);
 	if (!data) {
 		std::cerr << "Failed to load texture: " << path << ": " << stbi_failure_reason() << std::endl;
-		filename.clear();
-		id = 0;
+		clear();
 		return;
 	}
 	GLenum formats[] = { 0, GL_RED, GL_RG, GL_RGB, GL_RGBA };

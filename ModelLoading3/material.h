@@ -96,7 +96,7 @@ inline Texture Material::getTexture(aiMaterial * mat,
 		return Texture();
 	aiString aiPath;
 	mat->GetTexture(type, index, &aiPath);
-	fs::path path = directory / utf8::to_path(aiPath.C_Str());
+	fs::path path = directory / u8::to_path(aiPath.C_Str());
 	// Assume ralative filename if wrong path is hard-coded
 	if (!fs::exists(path))
 		path = directory / path.filename();
