@@ -162,6 +162,7 @@
     <ClInclude Include="model.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="shaders\shader.frag">

@@ -16,6 +16,7 @@
 #include "model.h"
 #include "lights.h"
 #include "primitives.h"
+#include "utils.h"
 #include "debug.h"
 
 using namespace std;
@@ -99,22 +100,22 @@ int main()
 
 	Mesh model1 = makeSphere();
 	//Mesh model1 = makeCube(true);
-	Material mat;
-	mat.ambient_color = vec3(1.0f);
-	mat.diffuse_color = vec3(1.0f);
-	mat.specular_color = vec3(0.5f);
-	mat.shininess = 10.0f;
-	mat.diffuse_texture = Texture("../Resources/textures/earth_sphere10k.jpg");
+	Material matl;
+	matl.ambient_color = vec3(1.0f);
+	matl.diffuse_color = vec3(1.0f);
+	matl.specular_color = vec3(0.5f);
+	matl.shininess = 10.0f;
+	matl.diffuse_texture = Texture("../Resources/textures/earth_sphere10k.jpg");
 	//mat.diffuse_texture = Texture("../Resources/textures/cubenet.png");
-	model1.material = &mat;
+	model1.material = &matl;
 
 	Mesh lightMesh = makeSphere();
-	Material lightMat;
-	lightMat.diffuse_color = vec3(0.0f);
-	lightMat.specular_color = vec3(0.0f);
-	lightMat.ambient_color = vec3(0.0f);
-	lightMat.emissive_color = vec3(1.0f);
-	lightMesh.material = &lightMat;
+	Material lightMatl;
+	lightMatl.diffuse_color = vec3(0.0f);
+	lightMatl.specular_color = vec3(0.0f);
+	lightMatl.ambient_color = vec3(0.0f);
+	lightMatl.emissive_color = vec3(1.0f);
+	lightMesh.material = &lightMatl;
 
 	PointLight pointLights[] = {
 		{
@@ -175,9 +176,8 @@ int main()
 		shader.setInt("numSpotLights", 0);
 
 		// view/projection transformations
-		int viewport[4];
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		float aspect = float(viewport[2]) / float(viewport[3]);
+		auto [_x, _y, width, height] = util::glGet<int, 4>(GL_VIEWPORT);
+		float aspect = float(width) / float(height);
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), aspect, ZNEAR, ZFAR);
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", camera.GetViewMatrix());
@@ -196,7 +196,7 @@ int main()
 			modelMat = glm::translate(modelMat, light.position);
 			modelMat = glm::scale(modelMat, vec3(0.1f));
 			shader.setMat4("model", modelMat);
-			lightMat.emissive_color = light.diffuse;
+			lightMatl.emissive_color = light.diffuse;
 			lightMesh.draw(shader);
 		}
 
