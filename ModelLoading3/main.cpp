@@ -171,7 +171,7 @@ int main()
 		shader.setInt("numDirLights", 0);
 		shader.setInt("numPointLights", int(std::size(pointLights)));
 		for (int i = 0; i < std::size(pointLights); i++) {
-			pointLights[i].apply(shader, "pointLights[" + to_string(i) + "]");
+			pointLights[i].apply(shader, fmt::format("pointLights[{}]", i));
 		}
 		shader.setInt("numSpotLights", 0);
 

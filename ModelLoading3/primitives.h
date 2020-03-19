@@ -10,11 +10,15 @@ inline Mesh makeSphere(unsigned int nLat = 16, unsigned int nLon = 32) {
 	std::vector<Vertex> vertices;
 	for (unsigned int i = 0; i < nLat + 1; i++) {
 		for (unsigned int j = 0; j < nLon + 1; j++) {
-			float theta = float(j) / nLon * glm::two_pi<float>();
-			float phi = (float(i) / nLat - 0.5f) * glm::pi<float>();
-			float x = glm::cos(theta) * glm::cos(phi);
-			float y = glm::sin(phi);
-			float z = -glm::sin(theta) * glm::cos(phi);
+			float theta = float(j % nLon) / nLon * glm::two_pi<float>();
+			float phi = float(i) / nLat * glm::pi<float>();
+			float x = glm::cos(theta) * glm::sin(phi);
+			float y = -glm::cos(phi);
+			float z = -glm::sin(theta) * glm::sin(phi);
+			if (i == nLat) {
+				x = z = 0.0f;
+				y = 1.0f;
+			}
 			float u = float(j) / nLon;
 			float v = float(i) / nLat;
 			vertices.push_back({ {x, y, z}, {x, y, z}, {u, v} });

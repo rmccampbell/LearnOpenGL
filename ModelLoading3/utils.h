@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 
 namespace util {
+
 namespace detail {
 void glGetImpl(GLenum pname, GLint* data) {
 	return glGetIntegerv(pname, data);
@@ -38,4 +39,5 @@ auto glGet(GLenum pname) {
 		return data;
 	}
 }
+
 }
