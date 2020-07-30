@@ -5,15 +5,20 @@ in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoords;
 
+struct Texture {
+	sampler2D texture;
+	bool bound;
+};
+
+vec4 GetTexture(Texture tex, vec2 texCoords) {
+	return tex.bound ? texture(tex.texture, texCoords) : vec4(1.0);
+}
+
 struct Material {
-    sampler2D diffuse_texture;
-    bool has_diffuse_texture;
-    sampler2D specular_texture;
-    bool has_specular_texture;
-    sampler2D emissive_texture;
-    bool has_emissive_texture;
-    sampler2D ao_texture;
-    bool has_ao_texture;
+    Texture diffuse_texture;
+    Texture specular_texture;
+    Texture emissive_texture;
+    Texture ao_texture;
 	vec3 ambient_color;
     vec3 diffuse_color;
     vec3 specular_color;
@@ -66,15 +71,10 @@ uniform DirLight dirLights[MAX_LIGHTS];
 uniform PointLight pointLights[MAX_LIGHTS];
 uniform SpotLight spotLights[MAX_LIGHTS];
 
-
-vec4 diffTex = material.has_diffuse_texture ?
-	texture(material.diffuse_texture, TexCoords) : vec4(1.0);
-vec4 specTex = material.has_specular_texture ?
-	texture(material.specular_texture, TexCoords) : vec4(1.0);
-vec4 emissTex = material.has_emissive_texture ?
-	texture(material.emissive_texture, TexCoords) : vec4(1.0);
-vec4 aoTex = material.has_ao_texture ?
-	texture(material.ao_texture, TexCoords) : vec4(1.0);
+vec4 diffTex = GetTexture(material.diffuse_texture, TexCoords);
+vec4 specTex = GetTexture(material.specular_texture, TexCoords);
+vec4 emissTex = GetTexture(material.emissive_texture, TexCoords);
+vec4 aoTex = GetTexture(material.ao_texture, TexCoords);
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
 {
@@ -109,7 +109,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     vec3 ambient  = light.ambient  * material.ambient_color  * diffTex.rgb;
     vec3 diffuse  = light.diffuse  * material.diffuse_color  * diffTex.rgb * diff;
     vec3 specular = light.specular * material.specular_color * specTex.rgb * spec;
-    return (ambient + diffuse + specular) * attenuation;
+    return ambient + (diffuse + specular) * attenuation;
 }
 
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
@@ -132,7 +132,7 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     vec3 ambient  = light.ambient  * material.ambient_color  * diffTex.rgb;
     vec3 diffuse  = light.diffuse  * material.diffuse_color  * diffTex.rgb * diff;
     vec3 specular = light.specular * material.specular_color * specTex.rgb * spec;
-    return (ambient + diffuse + specular) * attenuation * spotIntensity;
+    return ambient + (diffuse + specular) * attenuation * spotIntensity;
 }
 
 void main()

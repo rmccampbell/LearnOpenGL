@@ -91,11 +91,11 @@ int main()
 	// Load mesh
 	// ---------
 	Model model1("../Resources/models/nanosuit/nanosuit.obj");
-	//Model model1(R"(C:\Users\Ryan\3D Objects\hylian_shield\model.dae)");
+	//Model model1(R"(C:\Users\Ryan\3D Objects\Zelda\hylian_shield\model.dae)");
 
-	//model1.materials[0].diffuse_texture = Texture(R"(C:\Users\Ryan\3D Objects\hylian_shield\textures\02 - Default_albedo.jpg)");
-	//model1.materials[0].specular_texture = Texture(R"(C:\Users\Ryan\3D Objects\hylian_shield\textures\specular.jpg)");
-	//model1.materials[0].ao_texture = Texture(R"(C:\Users\Ryan\3D Objects\hylian_shield\textures\02 - Default_AO.jpg)");
+	//model1.materials[0].diffuse_texture = Texture(R"(C:\Users\Ryan\3D Objects\Zelda\hylian_shield\textures\02 - Default_albedo.jpg)");
+	//model1.materials[0].specular_texture = Texture(R"(C:\Users\Ryan\3D Objects\Zelda\hylian_shield\textures\specular.jpg)");
+	//model1.materials[0].ao_texture = Texture(R"(C:\Users\Ryan\3D Objects\Zelda\hylian_shield\textures\02 - Default_AO.jpg)");
 	//model1.materials[0].diffuse_color = glm::vec3(0.6f);
 	//model1.materials[0].specular_color = glm::vec3(0.6f);
 	//model1.materials[0].shininess = 15.0f;

@@ -93,12 +93,11 @@ inline void Material::getColor(aiMaterial* mat, const char* pKey,
 
 inline Texture Material::getTexture(aiMaterial * mat,
 		const fs::path& directory, aiTextureType type, unsigned int index) {
-	if (mat->GetTextureCount(type) <= index)
-		return Texture();
 	aiString aiPath;
-	mat->GetTexture(type, index, &aiPath);
+	if (mat->GetTexture(type, index, &aiPath) != AI_SUCCESS)
+		return Texture();
 	fs::path path = directory / fs::u8path(aiPath.C_Str());
-	// Assume ralative filename if wrong path is hard-coded
+	// Assume relative filename if wrong path is hard-coded
 	if (!fs::exists(path))
 		path = directory / path.filename();
 	return Texture(path.u8string());

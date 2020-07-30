@@ -6,23 +6,23 @@ namespace util {
 
 namespace detail {
 void glGetImpl(GLenum pname, GLint* data) {
-	return glGetIntegerv(pname, data);
+	glGetIntegerv(pname, data);
 }
 
 void glGetImpl(GLenum pname, GLint64* data) {
-	return glGetInteger64v(pname, data);
+	glGetInteger64v(pname, data);
 }
 
 void glGetImpl(GLenum pname, GLfloat* data) {
-	return glGetFloatv(pname, data);
+	glGetFloatv(pname, data);
 }
 
 void glGetImpl(GLenum pname, GLdouble* data) {
-	return glGetDoublev(pname, data);
+	glGetDoublev(pname, data);
 }
 
 void glGetImpl(GLenum pname, GLboolean* data) {
-	return glGetBooleanv(pname, data);
+	glGetBooleanv(pname, data);
 }
 }
 

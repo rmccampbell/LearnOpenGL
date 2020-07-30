@@ -106,7 +106,7 @@ int main()
 	matl.specular_color = vec3(0.5f);
 	matl.shininess = 10.0f;
 	matl.diffuse_texture = Texture("../Resources/textures/earth_sphere10k.jpg");
-	//mat.diffuse_texture = Texture("../Resources/textures/cubenet.png");
+	//matl.diffuse_texture = Texture("../Resources/textures/cubenet.png");
 	model1.material = &matl;
 
 	Mesh lightMesh = makeSphere();
