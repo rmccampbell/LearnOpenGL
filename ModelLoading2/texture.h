@@ -35,6 +35,7 @@ inline Texture::Texture(const std::string& path, bool flip) : filename(path)
 	GLenum format = formats[channels];
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 	stbi_image_free(data);
 
